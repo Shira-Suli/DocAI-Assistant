@@ -66,10 +66,32 @@ document.addEventListener("DOMContentLoaded", async () => {
       sourceType: "html"
     };
 
-    // MOCK RESPONSE – replace with backend later
-    answerDiv.textContent =
-      "This is a mock answer.\n\nThe question was answered correctly using the selected context.";
+    // // MOCK RESPONSE – replace with backend later
+    // answerDiv.textContent =
+    //   "This is a mock answer.\n\nThe question was answered correctly using the selected context.";
 
-    console.log("Payload sent to backend:", payload);
+    // console.log("Payload sent to backend:", payload);
+    fetch("http://localhost:3000/ask", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(payload)
+    })
+      .then(async (res) => {
+        if (!res.ok) {
+          throw new Error("Backend error");
+        }
+        return res.json();
+      })
+      .then((data) => {
+        answerDiv.textContent = data.answer || "No answer returned.";
+      })
+      .catch((err) => {
+        console.error(err);
+        answerDiv.textContent =
+          "AI service unavailable. Please try again later.";
+      });
+
   });
 });
