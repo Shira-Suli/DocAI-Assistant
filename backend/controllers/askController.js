@@ -1,29 +1,52 @@
 const { askAI } = require('../services/aiService');
 
+// const handleAsk = async (req, res) => {
+//   const { question, highlightedText, documentContext, sourceType } = req.body;
+
+//   if (!question || !documentContext) {
+//     return res.status(400).json({ error: 'Missing required fields' });
+//   }
+
+//   try {
+//     const result = await askAI(
+//       question,
+//       highlightedText,
+//       documentContext,
+//       sourceType
+//     );
+
+//     res.json(result);
+//   } catch (err) {
+//     console.error(err);
+//     res.status(500).json({ error: 'AI service unavailable' });
+//   }
+// };
 const handleAsk = async (req, res) => {
+  console.log("📥 REQUEST BODY:", req.body);
+
   const { question, highlightedText, documentContext, sourceType } = req.body;
 
-  if (!question) {
-    return res.status(400).json({ error: 'Missing question field' });
+  if (!question || !documentContext) {
+    console.log("❌ Missing fields");
+    return res.status(400).json({ error: "Missing required fields" });
   }
-
-  const usedContext = highlightedText ? 'highlightedText' : 'documentContext';
-  const context = highlightedText || documentContext || '';
 
   try {
-    const aiResult = await askAI(question, context, sourceType);
+    console.log("➡️ Calling askAI...");
+    const result = await askAI(
+      question,
+      highlightedText,
+      documentContext,
+      sourceType
+    );
 
-    res.json({
-      answer: aiResult.answer,
-      confidence: aiResult.confidence,
-      usedContext,
-      metadata: aiResult.metadata
-    });
-
+    console.log("✅ AI RESULT:", result);
+    return res.json(result);
   } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: 'AI service unavailable' });
+    console.error("🔥 ERROR IN askAI:", err);
+    return res.status(500).json({ error: "AI service unavailable" });
   }
 };
+
 
 module.exports = { handleAsk };

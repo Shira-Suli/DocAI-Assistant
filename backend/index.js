@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express = require('express');
 const cors = require('cors');
 
@@ -15,7 +16,6 @@ app.get('/health', (req, res) => {
 
 // Ask AI
 app.use('/ask', askRoutes); 
-
 const PORT = 3000;
 app.listen(PORT, () => {
   console.log(`DOCAI-ASSISTANT backend running on port ${PORT}`);
