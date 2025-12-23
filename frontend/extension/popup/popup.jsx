@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { createRoot } from "react-dom/client";
 import "./popup.css";
+import { marked } from "marked";
 
 /* ---------- markdown renderer (bold only) ---------- */
 function renderMarkdown(text) {
   if (!text) return "";
-  return text
-    .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")
-    .replace(/\n/g, "<br>");
+  return marked.parse(text);
 }
+
 
 function Popup() {
   const [question, setQuestion] = useState("");

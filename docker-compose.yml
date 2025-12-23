@@ -19,6 +19,6 @@ services:
       dockerfile: Dockerfile
     container_name: docai-assistant-frontend
     ports:
-      - "5173:80" # אם Vite dev server צריך 5173, אם build Nginx אז 80
+      - "5173:80"  # nginx serve
     volumes:
       - ./frontend:/app

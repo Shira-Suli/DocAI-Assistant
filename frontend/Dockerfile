@@ -1,28 +1,20 @@
-# Stage 1: Build the app using Node.js
-FROM node:20 as build
-
+# Base stage: Node (למקרה שיש תלותיות npm)
+FROM node:20 as base
 WORKDIR /app
 
-# Copy package.json and package-lock.json
+# העתק package.json אם יש תלותיות
 COPY package*.json ./
-
-# Install dependencies
 RUN npm install
-
-# Copy all frontend files
-COPY . .
-
-# Build the frontend (Vite/React/whatever)
-RUN npm run build
 
 # Stage 2: Serve with Nginx
 FROM nginx:stable-alpine
+WORKDIR /usr/share/nginx/html
 
-# Copy the production build to Nginx
-COPY --from=build /app/dist /usr/share/nginx/html
+# העתק את כל הקבצים ל-Nginx
+COPY --from=base /app .
 
-# Expose port 80
+# חשוף פורט
 EXPOSE 80
 
-# Start Nginx
+# הפעלת Nginx
 CMD ["nginx", "-g", "daemon off;"]
