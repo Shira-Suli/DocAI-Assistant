@@ -1,0 +1,24 @@
+version: "3.9"
+
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: docai-assistant-backend
+    ports:
+      - "3000:3000"
+    env_file:
+      - ./backend/.env
+    volumes:
+      - ./backend:/app
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: docai-assistant-frontend
+    ports:
+      - "5173:80" # אם Vite dev server צריך 5173, אם build Nginx אז 80
+    volumes:
+      - ./frontend:/app

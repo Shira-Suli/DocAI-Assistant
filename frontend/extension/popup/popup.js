@@ -1,4 +1,3 @@
-
 document.addEventListener("DOMContentLoaded", async () => {
   const askBtn = document.getElementById("askBtn");
   const clearBtn = document.getElementById("clearBtn");
