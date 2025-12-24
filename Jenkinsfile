@@ -18,10 +18,10 @@ pipeline {
       }
     }
 
-    stage('Build Docker images') {
-      steps {
-        sh 'docker-compose build'
-      }
-    }
+    // stage('Build Docker images') {
+    //   steps {
+    //     sh 'docker-compose build'
+    //   }
+    // }
   }
 }
