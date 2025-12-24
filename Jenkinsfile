@@ -1,14 +1,11 @@
 pipeline {
   agent any
 
-  stages {
-    // stage('Checkout') {
-    //   steps {
-    //     git branch: 'dev-b',
-    //         url: 'https://github.com/Shira-Suli/DocAI-Assistant/tree/dev-b'
-    //   }
-    // }
+  tools {
+    nodejs 'node20'
+  }
 
+  stages {
     stage('Install dependencies') {
       steps {
         sh 'npm install --prefix backend'
