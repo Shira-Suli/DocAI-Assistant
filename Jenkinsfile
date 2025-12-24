@@ -2,12 +2,12 @@ pipeline {
   agent any
 
   stages {
-    stage('Checkout') {
-      steps {
-        git branch: 'dev-b',
-            url: 'https://github.com/Shira-Suli/DocAI-Assistant/tree/dev-b'
-      }
-    }
+    // stage('Checkout') {
+    //   steps {
+    //     git branch: 'dev-b',
+    //         url: 'https://github.com/Shira-Suli/DocAI-Assistant/tree/dev-b'
+    //   }
+    // }
 
     stage('Install dependencies') {
       steps {
